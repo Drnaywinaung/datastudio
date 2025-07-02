@@ -1,6 +1,6 @@
 # app.py
 # This script runs a Flask web server to provide a UI for the data analysis.
-# Updated to be compatible with the scikit-learn based regression in analysis.py.
+# This version is ready for production deployment on a service like Render.
 
 from flask import Flask, render_template, jsonify, request
 import pandas as pd
@@ -14,7 +14,7 @@ from analysis import (
     perform_correlation_analysis,
     perform_chi_square_test,
     perform_reliability_analysis,
-    perform_regression_analysis # Using the scikit-learn version
+    perform_regression_analysis
 )
 
 app = Flask(__name__)
@@ -135,5 +135,5 @@ def analyze_data():
     except Exception as e:
         return jsonify({'status': 'error', 'message': f'An unexpected error occurred: {str(e)}'}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Note: The if __name__ == '__main__': block is removed for production.
+# Gunicorn will be used to run the 'app' object directly.
